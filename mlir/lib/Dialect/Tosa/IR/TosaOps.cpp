@@ -928,6 +928,9 @@ LogicalResult tosa::ClampOp::verify() {
   if (inputETy != outputETy)
     return emitOpError("input/output element types are incompatible.");
 
+  if (inputETy.isInteger(1))
+    return emitOpError("does not support boolean element types.");
+
   auto maxValAttr = getMaxValAttr();
   auto minValAttr = getMinValAttr();
 
